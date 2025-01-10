@@ -1,5 +1,6 @@
 spring:
   mvc:
+    static-path-pattern: /**
     view:
       prefix: /resources/templates/
       suffix: .html

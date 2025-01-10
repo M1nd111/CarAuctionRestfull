@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>buyer</title>
+    <link rel="stylesheet" href="/style/buyerAuth.css">
+</head>
+<body>
+<div class="main_div">
+    <form th:action="@{/login}" method="post">
+        <label for="username"><span>Username:</span>
+            <input type="text" name="username" id="username">
+        </label><br/><br/>
+
+        <label for="password"><span>Password:</span>
+            <input type="password" name="password" id="password">
+        </label><br/><br/>
+
+        <div class="second_div">
+            <button type="submit">Login</button> <br/><br/>
+
+            <a href="user/buyerRegistration">
+                <button type="button">Register</button>
+            </a>
+        </div>
+    </form>
+</div>
+<script src="/script/buyerAuth.js"></script>
+
+</body>
+</html>
