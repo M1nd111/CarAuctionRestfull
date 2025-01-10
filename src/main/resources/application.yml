@@ -1,0 +1,29 @@
+spring:
+  mvc:
+    view:
+      prefix: /resources/templates/
+      suffix: .html
+  datasource:
+    hikari:
+      connection-timeout: 30000
+    url: jdbc:mysql://localhost:3306/carauctiondatabase
+    username: root
+    password: Root89
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        hbm2ddl:
+          auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+logging:
+  level:
+    root: info
+  file:
+    name:
+      loggFile
+    path: /
