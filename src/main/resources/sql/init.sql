@@ -1,7 +1,43 @@
-CREATE TABLE IF NOT EXISTS company
+CREATE TABLE IF NOT EXISTS buyer
 (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(64) NOT NULL UNIQUE
+    phone_number SERIAL PRIMARY KEY,
+    fio VARCHAR(128) NOT NULL ,
+    passport_number INT NOT NULL UNIQUE,
+    email VARCHAR(192) NOT NULL UNIQUE,
+    password VARCHAR(64),
+    order_number BIGINT REFERENCES orders(order_number)
+);
+
+CREATE TABLE IF NOT EXISTS seller
+(
+    phone_number SERIAL PRIMARY KEY,
+    fio VARCHAR(128) NOT NULL,
+    inn INT NOT NULL UNIQUE,
+    email VARCHAR(192) NOT NULL UNIQUE,
+    password VARCHAR(64),
+    auto_number BIGINT NOT NULL REFERENCES cars(auto_number)
+);
+
+
+CREATE TABLE IF NOT EXISTS cars
+(
+    auto_number SERIAL PRIMARY KEY,
+    mark_and_model_name VARCHAR(128) NOT NULL,
+    year YEAR NOT NULL,
+    km VARCHAR(128) NOT NULL,
+    feel VARCHAR(128) NOT NULL,
+    price BIGINT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS orders
+(
+    order_number SERIAL PRIMARY KEY,
+    auto_number BIGINT NOT NULL REFERENCES cars(auto_number),
+    seller_phone BIGINT NOT NULL,
+    buyer_phone BIGINT NOT NULL,
+    order_now  VARCHAR(128) NOT NULL,
+    date  DATE NOT NULL,
+    time  TIME NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS  company_locales

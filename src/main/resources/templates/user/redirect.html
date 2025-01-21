@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authorization</title>
+    <link rel="stylesheet" href="/style/redirect.css">
+</head>
+<body>
+
+<div class="m_div">
+    <p>Добро пожаловать на аукцион!</p><br>
+
+    <form th:action="@{/login}" method="post">
+        <label for="username"><span>Username:</span>
+            <input type="text" name="username" id="username">
+        </label><br/><br/>
+
+        <label for="password"><span>Password:</span>
+            <input type="password" name="password" id="password">
+        </label><br/><br/>
+
+        <div class>
+            <button class="redirect_button" type="submit">Login</button><br/><br/>
+        </div>
+
+        <div>
+            <a href="/redirect/buyerRegistration">
+                <button class="redirect_button" type="button">Register for buyer</button>
+            </a>
+            <a href="/redirect/sellerRegistration">
+                <button class="redirect_button" type="button">Register for seller</button>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+<script src="/script/redirect.js"></script>
+</body>
+</html>

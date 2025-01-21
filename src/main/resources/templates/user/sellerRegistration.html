@@ -3,44 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
-    <link rel="stylesheet" href="/style/buyerAuth.css">
+    <link rel="stylesheet" href="/style/register.css">
 </head>
 <body>
-<div class="brd">
-    <form th:action="@{/users}" enctype="multipart/form-data" method="post" th:object="${user}">
+<div class="m_div">
+    <form th:action="@{/users}" enctype="multipart/form-data" method="post">
 
-        <label for="username">Username:
-            <input id="username" type="text" name="username"  th:value=" (*{username} != null) ? *{username} : ''">
-        </label><br><br>
-        <label for="birthDate">birthDate:
-            <input id="birthDate" type="text" name="birthDate" th:value="(*{birthDate} != null) ? *{birthDate} : ''">
-        </label><br><br>
-        <label for="lastname">lastname:
-            <input id="lastname" type="text" name="lastname" th:value="(*{lastname} != null) ? *{lastname} : ''">
-        </label><br><br>
-        <label for="username">firstname:
-            <input id="firstname" type="text" name="firstname" th:value="(*{firstname} != null) ? *{firstname} : ''">
-        </label><br><br>
-        <label for="roles">roles:
-            <input id="roles" type="text" name="roles" th:value="(*{roles} != null) ? *{roles} : ''">
-        </label><br><br>
-        <label for="companyId">companyId:
-            <input id="companyId" type="text" name="companyId" th:value="(*{companyId} != null) ? *{companyId} : ''">
-        </label><br><br>
+    <label for="fio">FIO:
+        <input id="fio" type="text" name="fio">
+    </label><br><br>
+    <label for="phoneNumber">Phone number:
+        <input id="phoneNumber" type="text" name="phone_number">
+    </label><br><br>
+    <label for="email">Email:
+        <input id="email" type="text" name="email">
+    </label><br><br>
+    <label for="inn">INN:
+        <input id="inn" type="text" name="inn">
+    </label><br><br>
 
-        <label for="image">Image:
-            <input id="image" type="file" name="image">
-        </label>
-        <br><br>
-        <button type="submit">Register</button>
-        <br><br>
-    </form>
+    <br><br>
+    <button class="register_button" type="submit">Register</button>
+    <br><br>
+</form>
 
-    <div th:if="${errors}">
-        <p style="collor:red" th:each="error:${errors}" th:text="${error.defaultMessage}">Error message</p>
-    </div>
+<!--    <div th:if="${errors}">-->
+<!--        <p style="collor:red" th:each="error:${errors}" th:text="${error.defaultMessage}">Error message</p>-->
+<!--    </div>-->
 
 </div>
-<script src="/script/sellerAuth.js"></script>
+<script src="/script/register.js"></script>
 </body>
 </html>

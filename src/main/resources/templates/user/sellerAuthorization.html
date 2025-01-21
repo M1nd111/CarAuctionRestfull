@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>seller</title>
-    <link rel="stylesheet" href="/style/sellerAuth.css">
+    <link rel="stylesheet" href="/style/login.css">
 </head>
 <body>
 
-<div class="brd">
+<div class="main_div">
 
     <form th:action="@{/login}" method="post">
         <label for="username"><span>Username:</span>
@@ -18,14 +18,16 @@
             <input type="password" name="password" id="password">
         </label><br/><br/>
 
-        <button type="submit">Login</button> <br/><br/>
+        <div class="second_div">
+            <button type="submit">Login</button> <br/><br/>
 
-        <a href="users/sellerRegistration">
-            <button type="button">Register</button>
-        </a>
+            <a href="/redirect/sellerRegistration">
+                <button type="button">Register</button>
+            </a>
+        </div>
     </form>
 
 </div>
-<script src="/script/sellerAuth.js"></script>
+<script src="/script/login.js"></script>
 </body>
 </html>
