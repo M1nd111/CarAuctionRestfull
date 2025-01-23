@@ -23,8 +23,13 @@ spring:
 
 logging:
   level:
+    org:
+      springframework:
+        web: debug
+        security: debug
     root: info
   file:
     name:
       loggFile
     path: /
+

@@ -1,5 +1,6 @@
 package spring.ws.database.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -20,12 +21,20 @@ import java.time.LocalTime;
 public class OrderEntity implements BaseEntity<Long> {
 
     @Id
+    @Column(name = "order_number")
     private Long orderNumber;
+
+    @Column(name = "auto_number")
     private Long autoNumber;
+    @Column(name = "seller_phone")
     private Long sellerPhone;
+    @Column(name = "buyer_phone")
     private Long buyerPhone;
-    private String orderNow;
+    @Column(name = "initial_bid")
+    private String initialBid;
+    @Column(name = "date")
     private LocalDate date;
+    @Column(name = "time")
     private LocalTime time;
 
     @Override

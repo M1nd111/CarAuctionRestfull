@@ -16,7 +16,7 @@ public class CarReadDto {
     private String markAndModelName;
     private Year year;
     private String km;
-    private String feel;
+    private String carCondition;
     private Long price;
 
 }

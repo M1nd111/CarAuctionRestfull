@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Auction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .profile {
+            display: flex;
+            gap: 20px;
+        }
+
+        .profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info h2 {
+            margin-top: 0;
+        }
+
+        .auction-list {
+            margin-top: 20px;
+        }
+
+        .auction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .auction-item img {
+            width: 100px;
+            height: 75px;
+            object-fit: cover;
+        }
+
+        .auction-item-details {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .auction-item-details h3 {
+            margin: 0 0 10px;
+        }
+
+        .bid-button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .bid-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Car Auctions</h1>
+    <nav>
+        <a href="#profile">Profile</a>
+        <a href="#auctions">Auctions</a>
+        <a href="#logout">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <!-- Profile Section -->
+    <section id="profile" class="profile">
+        <img src="https://via.placeholder.com/150" alt="User Avatar">
+        <div class="profile-info">
+            <h2>John Doe</h2>
+            <p>Email: johndoe@example.com</p>
+            <p>Total Bids: 15</p>
+        </div>
+    </section>
+
+    <!-- Auction List Section -->
+    <section id="auctions" class="auction-list">
+        <h2>Available Auctions</h2>
+
+        <div class="auction-item">
+            <img src="https://via.placeholder.com/100x75" alt="Car">
+            <div class="auction-item-details">
+                <h3>Toyota Camry 2021</h3>
+                <p>Current Bid: $15,000</p>
+                <p>Auction Ends: 24 Jan 2025</p>
+            </div>
+            <button class="bid-button">Place Bid</button>
+        </div>
+
+        <div class="auction-item">
+            <img src="https://via.placeholder.com/100x75" alt="Car">
+            <div class="auction-item-details">
+                <h3>Honda Civic 2019</h3>
+                <p>Current Bid: $10,500</p>
+                <p>Auction Ends: 25 Jan 2025</p>
+            </div>
+            <button class="bid-button">Place Bid</button>
+        </div>
+    </section>
+</div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package spring.ws.database.entity;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -20,11 +21,17 @@ import java.time.Year;
 public class CarEntity implements BaseEntity<Long> {
 
     @Id
+    @Column(name = "auto_number")
     private Long autoNumber;
+    @Column(name = "mark_and_model_name")
     private String markAndModelName;
+    @Column(name = "year")
     private Year year;
+    @Column(name = "km")
     private String km;
-    private String feel;
+    @Column(name = "car_condition")
+    private String carCondition;
+    @Column(name = "price")
     private Long price;
     @Override
     public void setId(Long id) {

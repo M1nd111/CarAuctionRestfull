@@ -9,6 +9,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -19,13 +22,18 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 public class SecurityConfiguration {
 
     @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .csrf(AbstractHttpConfigurer::disable)
+//                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
+                        .requestMatchers("/authorization/seller/register", "/authorization/buyer/register", "user/main",
                                 "/redirect/login", "/redirect/sellerRegistration", "/redirect/buyerRegistration",
                                 "/style/**", "/script/**", "/images/**")
                         .permitAll()
@@ -33,7 +41,10 @@ public class SecurityConfiguration {
 //                .httpBasic(Customizer.withDefaults())
                 .formLogin(login -> login
                         .loginPage("/redirect/login")
-                        .defaultSuccessUrl("/main")
+                        .loginProcessingUrl("/redirect/login")
+                        .defaultSuccessUrl("/redirect/main")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
                         .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout")

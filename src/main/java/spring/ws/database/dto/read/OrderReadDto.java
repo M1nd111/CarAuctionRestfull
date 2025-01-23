@@ -18,7 +18,7 @@ public class OrderReadDto {
     private Long autoNumber;
     private Long sellerPhone;
     private Long buyerPhone;
-    private String orderNow;
+    private String initialBid;
     private LocalDate date;
     private LocalTime time;
 

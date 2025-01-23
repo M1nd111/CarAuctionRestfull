@@ -10,8 +10,8 @@
 <div class="m_div">
     <p>Добро пожаловать на аукцион!</p><br>
 
-    <form th:action="@{/login}" method="post">
-        <label for="username"><span>Username:</span>
+    <form th:action="@{/redirect/login}" method="post">
+        <label for="username"><span>Email:</span>
             <input type="text" name="username" id="username">
         </label><br/><br/>
 
@@ -22,11 +22,9 @@
         <div class>
             <button class="redirect_button" type="submit">Login</button><br/><br/>
         </div>
-
         <div>
             <a href="/redirect/buyerRegistration">
-                <button class="redirect_button" type="button">Register for buyer</button>
-            </a>
+                <button class="redirect_button" type="button">Register for buyer</button></a>
             <a href="/redirect/sellerRegistration">
                 <button class="redirect_button" type="button">Register for seller</button>
             </a>

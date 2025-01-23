@@ -9,9 +9,11 @@ import lombok.*;
 @Setter
 @Data
 public class BuyerReadDto {
-    private Long phoneNumber;
+    private String phoneNumber;
     private String fio;
-    private Integer passportNumber;
+    private String passportNumber;
     private String email;
+    private String password;
+    private String role;
 
 }

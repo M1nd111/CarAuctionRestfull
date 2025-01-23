@@ -26,10 +26,6 @@ public class AuthorizationController {
     private final BuyerRepository buyerRepository;
     private final SellerService sellerService;
     private final SellerRepository sellerRepository;
-    @PostMapping("/login")
-    public String login(Model model){
-        return "redirect:user/main";
-    }
 
     @PostMapping("/buyer/register")
     public String save(@ModelAttribute @Validated BuyerReadDto buyerReadDto,
@@ -40,24 +36,27 @@ public class AuthorizationController {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/redirect/login";
         }
+        buyerReadDto.setRole("buyer");
         buyerService.save(buyerReadDto);
 
-        var user = buyerRepository.findById(buyerReadDto.getPhoneNumber());
-        return "redirect:/users/" + user.get().getId();
+        var user = buyerRepository.findById(Long.valueOf(buyerReadDto.getPhoneNumber()));
+        return "redirect:/redirect/login";
     }
 
     @PostMapping("/seller/register")
     public String save(@ModelAttribute @Validated SellerReadDto sellerReadDto,
                        BindingResult bindingResult,
                        RedirectAttributes redirectAttributes){
+        System.out.println("method save active");
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("user", sellerReadDto);
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            return "redirect:/redirect/login";
+            return "redirect:/authorization/seller/register";
         }
+        sellerReadDto.setRole("seller");
         sellerService.save(sellerReadDto);
 
-        var user = sellerRepository.findById(sellerReadDto.getPhoneNumber());
-        return "redirect:/users/" + user.get().getId();
+        var user = sellerRepository.findById(Long.valueOf(sellerReadDto.getPhoneNumber()));
+        return "redirect:/redirect/login";
     }
 }

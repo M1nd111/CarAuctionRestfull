@@ -7,25 +7,28 @@
 </head>
 <body>
 <div class="m_div">
-    <form th:action="@{/users}" enctype="multipart/form-data" method="post">
+    <form th:action="@{/authorization/seller/register}" enctype="multipart/form-data" method="post" th:object="${seller}">
 
-    <label for="fio">FIO:
-        <input id="fio" type="text" name="fio">
-    </label><br><br>
-    <label for="phoneNumber">Phone number:
-        <input id="phoneNumber" type="text" name="phone_number">
-    </label><br><br>
-    <label for="email">Email:
-        <input id="email" type="text" name="email">
-    </label><br><br>
-    <label for="inn">INN:
-        <input id="inn" type="text" name="inn">
-    </label><br><br>
+        <label for="fio">FIO:
+            <input id="fio" type="text" name="fio">
+        </label><br><br>
+        <label for="phoneNumber">Phone number:
+            <input id="phoneNumber" type="text" name="phoneNumber">
+        </label><br><br>
+        <label for="email">Email:
+            <input id="email" type="text" name="email">
+        </label><br><br>
+        <label for="inn">INN:
+            <input id="inn" type="text" name="inn">
+        </label><br><br>
+        <label for="password">Password:
+            <input id="password" type="password" name="password">
+        </label><br><br>
 
-    <br><br>
-    <button class="register_button" type="submit">Register</button>
-    <br><br>
-</form>
+        <br><br>
+        <button class="register_button" type="submit">Register</button>
+        <br><br>
+    </form>
 
 <!--    <div th:if="${errors}">-->
 <!--        <p style="collor:red" th:each="error:${errors}" th:text="${error.defaultMessage}">Error message</p>-->

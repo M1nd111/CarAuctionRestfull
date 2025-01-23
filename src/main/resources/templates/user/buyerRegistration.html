@@ -7,19 +7,22 @@
 </head>
 <body>
 <div class="m_div">
-    <form th:action="@{/users}" enctype="multipart/form-data" method="post">
+    <form th:action="@{/authorization/buyer/register}" enctype="multipart/form-data" method="post">
 
         <label for="fio">FIO:
             <input id="fio" type="text" name="fio">
         </label><br><br>
         <label for="phone_number">Phone number:
-            <input id="phone_number" type="text" name="phone_number">
+            <input id="phone_number" type="text" name="phoneNumber">
         </label><br><br>
         <label for="email">Email:
             <input id="email" type="text" name="email">
         </label><br><br>
         <label for="passportNumber">Passport number:
             <input id="passportNumber" type="text" name="passportNumber">
+        </label><br><br>
+        <label for="password">Password:
+            <input id="password" type="text" name="password">
         </label><br><br>
 
         <br><br>

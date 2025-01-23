@@ -1,13 +1,11 @@
 package spring.ws.database.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import spring.ws.database.role.Role;
 
 @Entity
 @Data
@@ -25,10 +23,17 @@ public class BuyerEntity implements BaseEntity<Long>{
     private String fio;
 
     @Column(name = "passport_number")
-    private Integer passportNumber;
+    private Long passportNumber;
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
 
     @Override
     public void setId(Long id) {

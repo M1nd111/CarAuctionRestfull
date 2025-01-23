@@ -48,6 +48,8 @@ dependencies {
     implementation 'com.mysql:mysql-connector-j'
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+    implementation 'com.querydsl:querydsl-core'
+    implementation 'com.querydsl:querydsl-jpa'
     annotationProcessor 'com.querydsl:querydsl-apt'
     implementation 'javax.persistence:javax.persistence-api:2.2'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'

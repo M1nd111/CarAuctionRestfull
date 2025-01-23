@@ -9,12 +9,12 @@ import lombok.*;
 @Setter
 @Data
 public class SellerReadDto {
-
-    private Long phoneNumber;
     private String fio;
-    private Integer inn;
+    private String phoneNumber;
     private String email;
-
+    private String inn;
+    private String password;
+    private String role;
 }
 
 
