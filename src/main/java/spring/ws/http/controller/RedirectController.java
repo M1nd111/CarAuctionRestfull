@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import spring.ws.database.dto.read.LoginDto;
 import spring.ws.database.dto.read.SellerReadDto;
 import spring.ws.database.repository.BuyerRepository;
@@ -24,11 +21,25 @@ public class RedirectController {
     public String redirectPage(){
         return "user/redirect";
     }
+    @PostMapping("/login")
+    public void saveUserLoginPvd(@RequestBody LoginDto loginDto){
+        System.out.println(loginDto.toString());
+    }
     @GetMapping("/main")
-    public String redirectPageMain(@ModelAttribute @Validated LoginDto loginDto){
-        sellerRepository.findByEmail(loginDto.getUsername()).get();
-        buyerRepository.findByEmail(loginDto.getUsername()).get();
-        return "user/main";
+    public String redirectPageMain(){
+//        sellerRepository.findByEmail(loginDto.getUsername()).get();
+//        buyerRepository.findByEmail(loginDto.getUsername()).get();
+        return "user/auction";
+    }
+    @GetMapping("/profile")
+    public String redirectPageProfile(){
+
+        return "user/profile";
+    }
+    @GetMapping("/bids")
+    public String redirectPageBids(){
+
+        return "user/auction";
     }
 
 //    @PostMapping("/login")

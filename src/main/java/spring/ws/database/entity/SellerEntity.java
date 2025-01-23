@@ -8,6 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import spring.ws.database.role.Role;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -36,6 +39,9 @@ public class SellerEntity implements BaseEntity<Long>{
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CarEntity> cars = new ArrayList<>();
     @Override
     public void setId(Long id) {
         this.phoneNumber = id;

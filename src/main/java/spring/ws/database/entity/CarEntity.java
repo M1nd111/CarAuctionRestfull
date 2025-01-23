@@ -1,10 +1,7 @@
 package spring.ws.database.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,6 +30,10 @@ public class CarEntity implements BaseEntity<Long> {
     private String carCondition;
     @Column(name = "price")
     private Long price;
+
+    @ManyToOne
+    @JoinColumn(name = "seller_phone")
+    private SellerEntity seller;
     @Override
     public void setId(Long id) {
 

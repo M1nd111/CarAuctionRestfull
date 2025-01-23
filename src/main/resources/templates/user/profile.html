@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Auction</title>
+    <title>Profile</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -130,50 +129,19 @@
 <header>
     <h1>Car Auctions</h1>
     <nav>
+        <a href="/redirect/main">Auctions</a>
         <a href="/redirect/bids">My Bids</a>
-        <a href="/redirect/profile">Profile</a>
         <form action="/redirect/logout" method="post">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <button class="redirect_button" type="submit">Logout</button>
         </form>
     </nav>
 </header>
-
-<div class="container">
-    <!-- Profile Section -->
-    <section id="profile" class="profile">
-        <img src="https://via.placeholder.com/150" alt="User Avatar">
-        <div class="profile-info">
-            <h2>John Doe</h2>
-            <p>Email: johndoe@example.com</p>
-            <p>Total Bids: 15</p>
-        </div>
-    </section>
-
-    <!-- Auction List Section -->
-    <section id="auctions" class="auction-list">
-        <h2>Available Auctions</h2>
-
-        <div class="auction-item">
-            <img src="https://via.placeholder.com/100x75" alt="Car">
-            <div class="auction-item-details">
-                <h3>Toyota Camry 2021</h3>
-                <p>Current Bid: $15,000</p>
-                <p>Auction Ends: 24 Jan 2025</p>
-            </div>
-            <button class="bid-button">Place Bid</button>
-        </div>
-
-        <div class="auction-item">
-            <img src="https://via.placeholder.com/100x75" alt="Car">
-            <div class="auction-item-details">
-                <h3>Honda Civic 2019</h3>
-                <p>Current Bid: $10,500</p>
-                <p>Auction Ends: 25 Jan 2025</p>
-            </div>
-            <button class="bid-button">Place Bid</button>
-        </div>
-    </section>
+<div id="profilePage" style="display: block;">
+    <h2>My Profile</h2>
+    <p><strong>Name:</strong> John Doe</p>
+    <p><strong>Email:</strong> john.doe@example.com</p>
+    <p><strong>Account Created:</strong> January 1, 2023</p>
 </div>
 </body>
 </html>

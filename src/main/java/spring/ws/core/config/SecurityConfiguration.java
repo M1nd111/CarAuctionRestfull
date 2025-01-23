@@ -31,7 +31,6 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-//                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/authorization/seller/register", "/authorization/buyer/register", "user/main",
                                 "/redirect/login", "/redirect/sellerRegistration", "/redirect/buyerRegistration",
@@ -47,8 +46,8 @@ public class SecurityConfiguration {
                         .passwordParameter("password")
                         .permitAll())
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
+                        .logoutUrl("/redirect/logout")
+                        .logoutSuccessUrl("/redirect/login")
                         .deleteCookies("JSESSIONID"));
 
         return http.build();

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Authorization</title>
@@ -11,6 +11,9 @@
     <p>Добро пожаловать на аукцион!</p><br>
 
     <form th:action="@{/redirect/login}" method="post">
+        <form th:action="@{/login}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
         <label for="username"><span>Email:</span>
             <input type="text" name="username" id="username">
         </label><br/><br/>

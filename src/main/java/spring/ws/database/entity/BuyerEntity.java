@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import spring.ws.database.role.Role;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -34,6 +37,10 @@ public class BuyerEntity implements BaseEntity<Long>{
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderEntity> orders = new ArrayList<>();
 
     @Override
     public void setId(Long id) {
