@@ -26,6 +26,9 @@ import java.util.stream.Collectors;
 public class SellerService {
     private final SellerRepository sellerRepository;
 
+    public void dellUserByID(String id){
+        sellerRepository.deleteById(Long.valueOf(id));
+    }
 
     public List<SellerReadDto> findAll() {
 
@@ -37,6 +40,18 @@ public class SellerService {
                 .password(SellerEntity.getPassword())
                 .role(String.valueOf(SellerEntity.getRole()))
                 .build()).collect(Collectors.toList());
+    }
+
+    public SellerReadDto findByEmail(String email) {
+
+        return sellerRepository.findByEmail(email).map(SellerEntity -> SellerReadDto.builder()
+                .phoneNumber(String.valueOf(SellerEntity.getPhoneNumber()))
+                .fio(SellerEntity.getFio())
+                .inn(String.valueOf(SellerEntity.getInn()))
+                .email(SellerEntity.getEmail())
+                .password(SellerEntity.getPassword())
+                .role(String.valueOf(SellerEntity.getRole()))
+                .build()).get();
     }
 
 

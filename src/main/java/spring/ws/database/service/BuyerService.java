@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import spring.ws.database.dto.read.BuyerReadDto;
+import spring.ws.database.dto.read.SellerReadDto;
 import spring.ws.database.entity.BuyerEntity;
 import spring.ws.database.repository.BuyerRepository;
 import spring.ws.database.repository.SellerRepository;
@@ -28,6 +29,21 @@ public class BuyerService implements UserDetailsService{
     private final BuyerRepository buyerRepository;
     private final SellerRepository sellerRepository;
 
+    public void dellUserByID(String id){
+        buyerRepository.deleteById(Long.valueOf(id));
+    }
+
+    public BuyerReadDto findByEmail(String email) {
+
+        return buyerRepository.findByEmail(email).map(BuyerEntity -> BuyerReadDto.builder()
+                .phoneNumber(String.valueOf(BuyerEntity.getPhoneNumber()))
+                .fio(BuyerEntity.getFio())
+                .passportNumber(String.valueOf(BuyerEntity.getPassportNumber()))
+                .email(BuyerEntity.getEmail())
+                .password(BuyerEntity.getPassword())
+                .role(String.valueOf(BuyerEntity.getRole()))
+                .build()).get();
+    }
 
     public List<BuyerReadDto> findAll() {
 
