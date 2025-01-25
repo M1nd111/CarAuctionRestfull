@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS seller
 
 CREATE TABLE IF NOT EXISTS cars
 (
-    auto_number SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
+    auto_number VARCHAR(128) NOT NULL ,
     mark_and_model_name VARCHAR(128) NOT NULL,
     year YEAR NOT NULL,
     km VARCHAR(128) NOT NULL,

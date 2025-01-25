@@ -36,40 +36,7 @@
         </form>
     </div>
 
-    <script>
-        var deleteBtnSeller = document.getElementById("delete-button-seller");
-
-        var modalLogout = document.getElementById("modalDell");
-
-        deleteBtnSeller.onclick = function() {
-            modalLogout.style.display = "block";
-        }
-
-        document.getElementById("delete-button-seller").addEventListener("click", function () {
-            const csrfToken = document.querySelector('input[name="_csrf"]').value;
-
-            fetch('/api/action/dellProfile', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken // Добавляем CSRF-токен в заголовок
-                },
-                body: JSON.stringify({}) // Можно передать данные, если необходимо
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert("Профиль успешно удален!");
-                        // Если нужно обновить страницу или скрыть профиль, выполните дополнительные действия
-                    } else {
-                        alert("Ошибка при удалении профиля.");
-                    }
-                })
-                .catch(error => {
-                    console.error("Ошибка:", error);
-                    alert("Произошла ошибка при запросе.");
-                });
-        });
-    </script>
+    <script src="/script/sellerProfile.js"></script>
 </div>
 
 <div th:fragment="sellerAuction">
@@ -85,32 +52,44 @@
         </nav>
     </header>
 
-    <div class="container">
+    <div id="content" class="container">
         <!-- Auction List Section -->
         <section id="auctions" class="auction-list">
-            <h2>Available Auctions</h2>
+            <h2>My cars</h2>
+            <button id="add_cars" class="redirect_button" type="submit">Add cars</button>
 
-            <div class="auction-item">
-                <img src="https://via.placeholder.com/100x75" alt="Car">
-                <div class="auction-item-details">
-                    <h3>Toyota Camry 2021</h3>
-                    <p>Current Bid: $15,000</p>
-                    <p>Auction Ends: 24 Jan 2025</p>
-                </div>
-                <button class="bid-button">Place Bid</button>
-            </div>
+            <div id="modalAddCars" class="modal">
+                <div class="modalAdd-content">
+                    <span class="closeAdd">&times;</span>
+                    <form id="modalFormAdd" name="car" class="modal-form" th:action="@{/api/action/add}" method="post">
+                        <label for="MarkAndModelName">Mark and model name</label>
+                        <input type="text" id="MarkAndModelName" name="MarkAndModelName" placeholder="Subaru Impreza" required>
 
-            <div class="auction-item">
-                <img src="https://via.placeholder.com/100x75" alt="Car">
-                <div class="auction-item-details">
-                    <h3>Honda Civic 2019</h3>
-                    <p>Current Bid: $10,500</p>
-                    <p>Auction Ends: 25 Jan 2025</p>
+                        <label for="autoNumber">Auto number</label>
+                        <input type="text" id="autoNumber" name="autoNumber" placeholder="X777XX"  required>
+
+                        <label for="year">Year</label>
+                        <input type="text" id="year" name="year" placeholder="2001" required>
+
+                        <label for="km">Km</label>
+                        <input type="text" id="km" name="km" placeholder="150 000" required>
+
+                        <label for="carCondition">Car condition</label>
+                        <input type="text" id="carCondition" name="carCondition" placeholder="good" required>
+
+                        <label for="price">Price</label>
+                        <input type="text" id="price" name="price" placeholder="In rub" required>
+
+                        <button  type="submit">Подтвердить</button>
+                    </form>
                 </div>
-                <button class="bid-button">Place Bid</button>
             </div>
         </section>
+
+        <div id="cars">
+        </div>
     </div>
+    <script src="/script/sellerAuction.js"></script>
 </div>
 
 </body>

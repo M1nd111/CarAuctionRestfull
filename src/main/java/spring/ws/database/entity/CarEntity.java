@@ -18,8 +18,11 @@ import java.time.Year;
 public class CarEntity implements BaseEntity<Long> {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
     @Column(name = "auto_number")
-    private Long autoNumber;
+    private String autoNumber;
     @Column(name = "mark_and_model_name")
     private String markAndModelName;
     @Column(name = "year")

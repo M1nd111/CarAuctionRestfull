@@ -22,7 +22,7 @@ import java.util.Objects;
 @Controller
 @RequestMapping("/redirect")
 @RequiredArgsConstructor
-@SessionAttributes({"user", "role"})
+@SessionAttributes({"user", "role", "phone"})
 public class RedirectController {
     private final BuyerRepository buyerRepository;
     private final BuyerService buyerService;
@@ -46,11 +46,13 @@ public class RedirectController {
             model.addAttribute("role", sellerReadDto.getRole());
             httpSession.setAttribute("user", sellerReadDto);
             httpSession.setAttribute("role", sellerReadDto.getRole());
+            httpSession.setAttribute("phone", sellerReadDto.getPhoneNumber());
         } else if (buyerRepository.findByEmail(username).isPresent()){
             BuyerReadDto buyerReadDto = buyerService.findByEmail(username);
             model.addAttribute("role", buyerReadDto.getRole());
             httpSession.setAttribute("user", buyerReadDto);
             httpSession.setAttribute("role", buyerReadDto.getRole());
+            httpSession.setAttribute("phone", buyerReadDto.getPhoneNumber());
         } else {
             System.out.printf("ERROR: USER %s NOT FOUND", username);
         }

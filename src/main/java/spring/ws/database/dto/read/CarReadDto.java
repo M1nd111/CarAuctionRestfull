@@ -12,11 +12,11 @@ import java.time.Year;
 @Data
 public class CarReadDto {
 
-    private Long autoNumber;
+    private String autoNumber;
     private String markAndModelName;
-    private Year year;
+    private String year;
     private String km;
     private String carCondition;
-    private Long price;
+    private String price;
 
 }
