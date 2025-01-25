@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import spring.ws.database.dto.read.CarReadDto;
 import spring.ws.database.dto.read.SellerReadDto;
 import spring.ws.database.entity.CarEntity;
@@ -15,6 +16,7 @@ import spring.ws.database.role.Role;
 
 import java.time.Year;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +25,36 @@ import java.util.stream.Collectors;
 public class CarService {
     private final CarRepository carRepository;
 
+    @Transactional
+    public Boolean dellByAutoNumber(String autoNumber){
+        carRepository.deleteByAutoNumber(autoNumber);
+        carRepository.flush();
+        return true;
+    }
+
+    @Transactional
+    public CarReadDto findByAutoNumber(String autoNumber){
+        return carRepository.findByAutoNumber(autoNumber).map(CarEntity -> CarReadDto.builder()
+                .markAndModelName(CarEntity.getMarkAndModelName())
+                .autoNumber(String.valueOf(CarEntity.getAutoNumber()))
+                .year(String.valueOf(CarEntity.getYear()))
+                .km(CarEntity.getKm())
+                .carCondition(CarEntity.getCarCondition())
+                .price(String.valueOf(CarEntity.getPrice()))
+                .build()).get();
+
+    }
+
+    @Transactional
+    public Boolean edit(CarReadDto carReadDto){
+        carRepository.updateByAutoNumber(carReadDto.getAutoNumber(), carReadDto.getKm(),
+                carReadDto.getCarCondition(), Long.valueOf(carReadDto.getPrice()));
+
+        carRepository.flush();
+        return true;
+    }
+
+    @Transactional
     public Boolean save(CarReadDto carReadDto, SellerEntity sellerEntity){
         carRepository.save(CarEntity.builder()
                 .markAndModelName(carReadDto.getMarkAndModelName())

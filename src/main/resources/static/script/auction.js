@@ -1,61 +1,35 @@
-var deleteBtnBuyer = document.getElementById("delete-button-buyer");
-var deleteBtnSeller = document.getElementById("delete-button-seller");
-
-var modalLogout = document.getElementById("modalDell");
-
-deleteBtnBuyer.onclick = function() {
-    modalLogout.style.display = "block";
-}
-deleteBtnSeller.onclick = function() {
-    modalLogout.style.display = "block";
-}
-
-document.getElementById("delete-button-buyer").addEventListener("click", function () {
-    const csrfToken = document.querySelector('input[name="_csrf"]').value;
-
-    fetch('/api/action/dellProfile', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken // Добавляем CSRF-токен в заголовок
-        },
-        body: JSON.stringify({}) // Можно передать данные, если необходимо
-    })
-        .then(response => {
-            if (response.ok) {
-                alert("Профиль успешно удален!");
-                // Если нужно обновить страницу или скрыть профиль, выполните дополнительные действия
-            } else {
-                alert("Ошибка при удалении профиля.");
-            }
-        })
-        .catch(error => {
-            console.error("Ошибка:", error);
-            alert("Произошла ошибка при запросе.");
-        });
+document.addEventListener("DOMContentLoaded", () => {
+    updateRecordTable();
 });
 
-document.getElementById("delete-button-seller").addEventListener("click", function () {
-    const csrfToken = document.querySelector('input[name="_csrf"]').value;
+function updateRecordTable() {
+    fetch('/api/action/all')
+        .then(response => response.json())
+        .then(cars => {
+            console.log('Response from /api/action/all:', cars);
+            const divCars = document.getElementById("cars");
 
-    fetch('/api/action/dellProfile', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken // Добавляем CSRF-токен в заголовок
-        },
-        body: JSON.stringify({}) // Можно передать данные, если необходимо
-    })
-        .then(response => {
-            if (response.ok) {
-                alert("Профиль успешно удален!");
-                // Если нужно обновить страницу или скрыть профиль, выполните дополнительные действия
-            } else {
-                alert("Ошибка при удалении профиля.");
-            }
+            // Очищаем предыдущие элементы
+            divCars.innerHTML = '';
+
+            cars.forEach((car, index) => {
+                const div = document.createElement('div');
+                div.className = 'auction-item';
+                div.setAttribute('data-id', index + 1);
+                div.innerHTML = `
+                        <div class="auction-item-details">
+                            <h3><strong>Mark name:</strong> <span class="editable" data-field="markAndModelName">${car.markAndModelName}</span></h3>
+                            <p><strong>Year:</strong> <span class="editable" data-field="year">${car.year}</span></p>
+                            <p><strong>Car number:</strong> <span class="editable" data-field="autoNumber">${car.autoNumber}</span></p>
+                            <p><strong>Km:</strong> <span class="editable" data-field="km">${car.km}</span></p>
+                            <p><strong>Condition:</strong> <span class="editable" data-field="carCondition">${car.carCondition}</span></p>
+                            <p><strong>Start price:</strong> <span class="editable" data-field="price">${car.price}</span></p>
+                        </div>
+                `;
+                divCars.appendChild(div);
+            });
         })
         .catch(error => {
-            console.error("Ошибка:", error);
-            alert("Произошла ошибка при запросе.");
+            console.error('Error:', error);
         });
-});
+}

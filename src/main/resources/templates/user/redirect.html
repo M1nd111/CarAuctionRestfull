@@ -10,7 +10,7 @@
 <div class="m_div">
     <p>Добро пожаловать на аукцион!</p><br>
 
-    <form th:action="@{/redirect/login}" method="post">
+    <form id="modalForm" th:action="@{/redirect/login}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
         <label for="username"><span>Email:</span>

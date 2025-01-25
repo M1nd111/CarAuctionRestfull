@@ -56,12 +56,17 @@
         <!-- Auction List Section -->
         <section id="auctions" class="auction-list">
             <h2>My cars</h2>
-            <button id="add_cars" class="redirect_button" type="submit">Add cars</button>
+            <div class="div_button">
+                <button id="add_cars" class="bid-button" type="submit">Add cars</button>
+                <button id="edit_info" class="bid-button">Edit info</button>
+                <button id="delete_car" class="redirect_button">Delete car</button>
+                <button id="put_auction" class="bid-button">Put it up for auction</button>
+            </div>
 
             <div id="modalAddCars" class="modal">
                 <div class="modalAdd-content">
                     <span class="closeAdd">&times;</span>
-                    <form id="modalFormAdd" name="car" class="modal-form" th:action="@{/api/action/add}" method="post">
+                    <form id="modalFormAdd" name="car" class="modal-form"  method="post">
                         <label for="MarkAndModelName">Mark and model name</label>
                         <input type="text" id="MarkAndModelName" name="MarkAndModelName" placeholder="Subaru Impreza" required>
 
@@ -80,13 +85,67 @@
                         <label for="price">Price</label>
                         <input type="text" id="price" name="price" placeholder="In rub" required>
 
-                        <button  type="submit">Подтвердить</button>
+                        <button  type="submit">Apply</button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <div id="cars">
+        <div id="modalDellCars" class="modal" style="display: none">
+            <div class="modalAdd-content">
+                <span class="closeDell">&times;</span>
+                <form id="formDellCar" name="car" class="modal-form"  method="post">
+
+                    <label for="autoNumberDell">Input auto number for dell</label>
+                    <input type="text" id="autoNumberDell" name="autoNumber" placeholder="X777XX" required>
+
+                    <button  type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="modalEditCars" class="modal" style="display: none">
+            <div class="modalAdd-content">
+                <span class="closeEdit">&times;</span>
+                <form id="formEdit" name="car" class="modal-form" method="post">
+
+                    <label for="autoNumberEdit">Input auto number for edit</label>
+                    <input type="text" id="autoNumberEdit" name="autoNumber" placeholder="X777XX" required>
+
+                    <label for="km">Km</label>
+                    <input type="text" id="kmEdit" name="km" placeholder="150 000" required>
+
+                    <label for="carCondition">Car condition</label>
+                    <input type="text" id="carConditionEdit" name="carCondition" placeholder="good" required>
+
+                    <label for="price">Price</label>
+                    <input type="text" id="priceEdit" name="price" placeholder="In rub" required>
+                    <button id="confirm_button" type="submit">Confirm</button>
+                </form>
+            </div>
+        </div>
+
+
+        <div id="modalPutCars" class="modal" style="display: none">
+            <div class="modalAdd-content">
+                <span class="closePut">&times;</span>
+                <form id="formPut" name="car" class="modal-form" method="post">
+
+                    <label for="autoNumberEdit">Input auto number for put in auction</label>
+                    <input type="text" id="autoNumberPut" name="autoNumber" placeholder="X777XX" required>
+
+                    <label for="datePut">Input auction start date</label>
+                    <input type="date" id="datePut" name="datePut" required>
+
+                    <label for="timePut">Input auction start time</label>
+                    <input type="time" id="timePut" name="timePut" required>
+
+                    <button id="put_button" type="submit">Start auction</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="cars" class="cars-div">
         </div>
     </div>
     <script src="/script/sellerAuction.js"></script>

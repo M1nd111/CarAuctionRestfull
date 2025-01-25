@@ -43,8 +43,30 @@ public class ActionRestController {
     @GetMapping("/all")
     public List<CarReadDto> getAllCars(HttpSession session) {
         Long phone = Long.valueOf((String) session.getAttribute("phone"));
-        List<CarReadDto> carReadDtoList = carService.findAllByPhone(phone);
-        return carReadDtoList;
+        return carService.findAllByPhone(phone);
+    }
+
+    @PostMapping("/edit")
+    public String edit(@RequestParam String autoNumber,
+                       @RequestParam String km,
+                       @RequestParam String carCondition,
+                       @RequestParam String price,
+                       HttpSession session){
+
+        CarReadDto carReadDto =  carService.findByAutoNumber(autoNumber);
+        carReadDto.setCarCondition(carCondition);
+        carReadDto.setKm(km);
+        carReadDto.setPrice(price);
+        carService.edit(carReadDto);
+
+        return "{\"status\":\"success\"}";
+    }
+
+    @PostMapping("/dell")
+    public String dell(@RequestParam String autoNumber,
+                      HttpSession session){
+        carService.dellByAutoNumber(autoNumber);
+        return "{\"status\":\"success\"}";
     }
 
     @PostMapping("/add")

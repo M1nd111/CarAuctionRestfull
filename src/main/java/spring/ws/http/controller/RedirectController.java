@@ -72,12 +72,6 @@ public class RedirectController {
         return "user/auction";
     }
 
-//    @PostMapping("/login")
-//    public String login(Model model, @ModelAttribute("login") LoginDto loginDto){
-//        System.out.println(loginDto.toString());
-//        return "user/main";
-//    }
-
 
     @GetMapping("/sellerRegistration")
     public String getRegisterPageSeller(){
