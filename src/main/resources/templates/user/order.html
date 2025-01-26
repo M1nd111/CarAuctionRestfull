@@ -2,9 +2,59 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>order</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Auction</title>
+    <link rel="stylesheet" href="/style/order.css">
+    <script src="/script/order.js"></script>
 </head>
-<body>
+<body class="bg-gradient">
+<div class="container">
+    <!-- Информация об автомобиле -->
+    <div class="card">
+        <h1>Информация об автомобиле</h1>
+        <ul>
+            <li><strong>Mark name:</strong> <span class="editable" th:text="${car.markAndModelName}"></span></li>
+            <li><strong>Year:</strong> <span class="editable" th:text="${car.year}"></span></li>
+            <li><strong>Car number:</strong> <span class="editable" th:text="${car.autoNumber}"></span></li>
+            <li><strong>Km:</strong> <span class="editable" th:text="${car.km}"></span></li>
+            <li><strong>Condition:</strong> <span class="editable" th:text="${car.carCondition}"></span></li>
+            <li><strong>Start price:</strong> <span class="editable" th:text="${car.price}"></span></li>
+        </ul>
+    </div>
 
+    <!-- Основной блок аукциона -->
+    <div class="card">
+        <h1>Аукцион автомобиля</h1>
+
+        <div class="price">
+            <h3><strong>Date price:</strong> <span class="editable" th:text="${date}"></span></h3>
+            <h3><strong>Time start:</strong> <span class="editable" th:text="${time}"></span></h3>
+            <h2>Текущая цена: <span id="currentBid" th:text="${car.price}">50000.00</span> ₽</h2>
+        </div>
+
+        <div class="input-group">
+            <label for="bidInput">Ваша ставка:</label>
+            <input
+                    type="number"
+                    id="bidInput"
+                    placeholder="Введите сумму"
+            />
+        </div>
+
+        <button onclick="placeBid()">Сделать ставку</button>
+
+        <div class="timer">
+            <h3>Оставшееся время: <span id="timer">60 сек.</span></h3>
+        </div>
+    </div>
+
+    <!-- Окно ставок -->
+    <div class="card">
+        <h1>Ставки участников</h1>
+        <ul id="bidList">
+            <li>Участник сделал ставку: 50000.00 ₽</li>
+        </ul>
+    </div>
+</div>
 </body>
 </html>

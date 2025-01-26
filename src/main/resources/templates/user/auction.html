@@ -8,8 +8,8 @@
 </head>
 <body>
 
-<div th:if="${role.toString() == 'seller'}" th:insert="~{sellerAuction :: sellerAuction}"></div>
-<div th:if="${role.toString() == 'buyer'}" th:insert="~{buyerAuction :: buyerAuction}"></div>
+<div th:if="${role == 'seller'}" th:insert="~{sellerAuction :: sellerAuction}"></div>
+<div th:if="${role == 'buyer'}" th:insert="~{buyerAuction :: buyerAuction}"></div>
 
 <script src="/script/auction.js"></script>
 </body>

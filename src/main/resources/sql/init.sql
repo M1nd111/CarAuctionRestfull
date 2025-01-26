@@ -1,3 +1,12 @@
+CREATE TABLE IF NOT EXISTS auction
+(
+    id SERIAL PRIMARY KEY,
+    auto_number VARCHAR(128) NOT NULL UNIQUE,
+    date DATE NOT NULL,
+    time TIME NOT NULL
+);
+
+
 CREATE TABLE IF NOT EXISTS buyer
 (
     phone_number SERIAL PRIMARY KEY,

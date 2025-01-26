@@ -14,17 +14,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import spring.ws.database.dto.read.AuctionReadDto;
 import spring.ws.database.dto.read.BuyerReadDto;
 import spring.ws.database.dto.read.CarReadDto;
 import spring.ws.database.dto.read.SellerReadDto;
+import spring.ws.database.dto.write.Auction;
 import spring.ws.database.entity.SellerEntity;
 import spring.ws.database.repository.BuyerRepository;
 import spring.ws.database.repository.CarRepository;
 import spring.ws.database.repository.SellerRepository;
+import spring.ws.database.service.AuctionService;
 import spring.ws.database.service.BuyerService;
 import spring.ws.database.service.CarService;
 import spring.ws.database.service.SellerService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,11 +43,44 @@ public class ActionRestController {
     private final SellerService sellerService;
     private final CarRepository carRepository;
     private final CarService carService;
+    private final AuctionService auctionService;
 
     @GetMapping("/all")
     public List<CarReadDto> getAllCars(HttpSession session) {
         Long phone = Long.valueOf((String) session.getAttribute("phone"));
         return carService.findAllByPhone(phone);
+    }
+
+    @GetMapping("/allAuction")
+    public List<Auction> getAllAuction(HttpSession session) {
+
+        List<AuctionReadDto> auctionReadDtoList = auctionService.findAll();
+        List<CarReadDto> carReadDtoList = new ArrayList<>();
+        List<Auction> auctionList = new ArrayList<>();
+        for (AuctionReadDto it : auctionReadDtoList){
+            carReadDtoList.add(carService.findByAutoNumber(it.getAutoNumber()));
+        }
+
+        for (int i = 0; i < auctionReadDtoList.size(); i++) {
+            AuctionReadDto auctionReadDto = auctionReadDtoList.get(i);
+            CarReadDto carReadDto = carReadDtoList.get(i);
+
+            Auction auction = Auction.builder()
+                    .autoNumber(carReadDto.getAutoNumber())
+                    .year(carReadDto.getYear())
+                    .carCondition(carReadDto.getCarCondition())
+                    .markAndModelName(carReadDto.getMarkAndModelName())
+                    .km(carReadDto.getKm())
+                    .price(carReadDto.getPrice())
+                    .date(auctionReadDto.getDate())
+                    .time(auctionReadDto.getTime())
+                    .build();
+
+            auctionList.add(auction);
+        }
+
+
+        return auctionList;
     }
 
     @PostMapping("/edit")

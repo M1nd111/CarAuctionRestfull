@@ -15,7 +15,6 @@ var spanPut = document.getElementsByClassName("closePut")[0];
 var modalEditCars = document.getElementById("modalEditCars");
 var modalDellCars = document.getElementById("modalDellCars");
 var modalPutCars = document.getElementById("modalPutCars");
-// var modalConfirmEditCars = document.getElementById("modalConfirmEditCars");
 
 addCarsButton.onclick = function() {
     modalAddCars.style.display = "block";
@@ -61,6 +60,7 @@ spanDell.onclick = function() {
 spanPut.onclick = function() {
     modalPutCars.style.display = "none";
 }
+
 
 document.getElementById('formEdit').addEventListener('submit', function(event) {
     event.preventDefault();

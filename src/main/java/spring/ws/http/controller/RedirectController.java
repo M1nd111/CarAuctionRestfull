@@ -7,16 +7,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import spring.ws.database.dto.read.BuyerReadDto;
-import spring.ws.database.dto.read.LoginDto;
-import spring.ws.database.dto.read.SellerReadDto;
+import spring.ws.database.dto.read.*;
 import spring.ws.database.entity.BuyerEntity;
 import spring.ws.database.entity.SellerEntity;
+import spring.ws.database.repository.AuctionRepository;
 import spring.ws.database.repository.BuyerRepository;
+import spring.ws.database.repository.CarRepository;
 import spring.ws.database.repository.SellerRepository;
+import spring.ws.database.service.AuctionService;
 import spring.ws.database.service.BuyerService;
+import spring.ws.database.service.CarService;
 import spring.ws.database.service.SellerService;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 @Controller
@@ -28,6 +32,10 @@ public class RedirectController {
     private final BuyerService buyerService;
     private final SellerRepository sellerRepository;
     private final SellerService sellerService;
+    private final CarService carService;
+    private final CarRepository carRepository;
+    private final AuctionRepository auctionRepository;
+    private final AuctionService auctionService;
 
 
 
@@ -64,6 +72,27 @@ public class RedirectController {
         model.addAttribute("role", httpSession.getAttribute("role"));
         model.addAttribute("user", httpSession.getAttribute("user"));
         return "user/profile";
+    }
+
+    @GetMapping("/put")
+    public String redirectPagePut(@RequestParam String autoNumber,
+                                  @RequestParam LocalDate datePut,
+                                  @RequestParam LocalTime timePut,
+                                  Model model){
+
+        model.addAttribute("date", datePut);
+        model.addAttribute("time", timePut);
+
+        CarReadDto carReadDto = carService.findByAutoNumber(autoNumber);
+        model.addAttribute("car", carReadDto);
+
+        AuctionReadDto auctionReadDto = AuctionReadDto.builder()
+                .autoNumber(autoNumber)
+                .date(datePut)
+                .time(timePut)
+                .build();
+        auctionService.save(auctionReadDto);
+        return "user/order";
     }
 
     @GetMapping("/bids")
