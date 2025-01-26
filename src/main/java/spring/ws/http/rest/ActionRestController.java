@@ -14,20 +14,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import spring.ws.database.dto.read.AuctionReadDto;
-import spring.ws.database.dto.read.BuyerReadDto;
-import spring.ws.database.dto.read.CarReadDto;
-import spring.ws.database.dto.read.SellerReadDto;
+import spring.ws.database.dto.read.*;
 import spring.ws.database.dto.write.Auction;
 import spring.ws.database.entity.SellerEntity;
 import spring.ws.database.repository.BuyerRepository;
 import spring.ws.database.repository.CarRepository;
 import spring.ws.database.repository.SellerRepository;
-import spring.ws.database.service.AuctionService;
-import spring.ws.database.service.BuyerService;
-import spring.ws.database.service.CarService;
-import spring.ws.database.service.SellerService;
+import spring.ws.database.service.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -37,13 +33,45 @@ import java.util.Objects;
 @SessionAttributes({"user", "role", "phone"})
 @RequiredArgsConstructor
 public class ActionRestController {
-    private final BuyerRepository buyerRepository;
     private final BuyerService buyerService;
     private final SellerRepository sellerRepository;
     private final SellerService sellerService;
-    private final CarRepository carRepository;
     private final CarService carService;
     private final AuctionService auctionService;
+    private final OrderService orderService;
+
+    @PostMapping("/addBid")
+    public String addBid(@RequestParam String id,
+                         @RequestParam String sum,
+                       HttpSession session){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        BuyerReadDto buyerReadDto = buyerService.findByEmail(username);
+
+        AuctionReadDto auctionReadDto = auctionService.findByID(Long.valueOf(id));
+        String autoNumber = auctionReadDto.getAutoNumber();
+
+        CarReadDto carReadDto = carService.findByAutoNumber(autoNumber);
+
+        OrderReadDto orderReadDto = OrderReadDto.builder()
+                .autoNumber(auctionReadDto.getAutoNumber())
+                .date(LocalDate.now())
+                .time(LocalTime.now())
+                .buyerPhone(Long.valueOf(buyerReadDto.getPhoneNumber()))
+                .initialBid(sum)
+                .sellerPhone(Long.valueOf(carReadDto.getSellerPhone()))
+                .build();
+
+        orderService.save(orderReadDto);
+        return "{\"status\":\"success\"}";
+    }
+
+    @GetMapping("/allBid")
+    public List<OrderReadDto> getAllBid(@RequestParam String autoNumber, HttpSession session) {
+        return orderService.findByAutoNumber(autoNumber);
+    }
 
     @GetMapping("/all")
     public List<CarReadDto> getAllCars(HttpSession session) {

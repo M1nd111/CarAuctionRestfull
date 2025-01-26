@@ -18,5 +18,6 @@ public class CarReadDto {
     private String km;
     private String carCondition;
     private String price;
+    private String sellerPhone;
 
 }

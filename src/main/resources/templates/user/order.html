@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Auction</title>
     <link rel="stylesheet" href="/style/order.css">
-    <script src="/script/order.js"></script>
 </head>
 <body class="bg-gradient">
 <div class="container">
@@ -13,9 +12,9 @@
     <div class="card">
         <h1>Информация об автомобиле</h1>
         <ul>
-            <li><strong>Mark name:</strong> <span class="editable" th:text="${car.markAndModelName}"></span></li>
+            <li><strong>Mark name:</strong> <span  class="editable" th:text="${car.markAndModelName}"></span></li>
             <li><strong>Year:</strong> <span class="editable" th:text="${car.year}"></span></li>
-            <li><strong>Car number:</strong> <span class="editable" th:text="${car.autoNumber}"></span></li>
+            <li><strong>Car number:</strong> <span id="autoNumber" class="editable" th:text="${car.autoNumber}"></span></li>
             <li><strong>Km:</strong> <span class="editable" th:text="${car.km}"></span></li>
             <li><strong>Condition:</strong> <span class="editable" th:text="${car.carCondition}"></span></li>
             <li><strong>Start price:</strong> <span class="editable" th:text="${car.price}"></span></li>
@@ -27,21 +26,22 @@
         <h1>Аукцион автомобиля</h1>
 
         <div class="price">
+            <h3><strong>Auction id:</strong> <span id="id" class="editable" th:text="${id}"></span></h3>
             <h3><strong>Date price:</strong> <span class="editable" th:text="${date}"></span></h3>
             <h3><strong>Time start:</strong> <span class="editable" th:text="${time}"></span></h3>
             <h2>Текущая цена: <span id="currentBid" th:text="${car.price}">50000.00</span> ₽</h2>
         </div>
 
-        <div class="input-group">
-            <label for="bidInput">Ваша ставка:</label>
-            <input
-                    type="number"
-                    id="bidInput"
-                    placeholder="Введите сумму"
-            />
-        </div>
+        <form id="form-bid-put" class="input-group" th:if="${role == 'buyer'}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <label for="bidInput">Your bid:</label>
+            <input type="number" id="bidInput" name="sum" placeholder="Input sum"/><br><br>
+            <button type="submit">Put bid</button><br>
+        </form>
 
-        <button onclick="placeBid()">Сделать ставку</button>
+
+
+        <button class="bid-button">Leave</button>
 
         <div class="timer">
             <h3>Оставшееся время: <span id="timer">60 сек.</span></h3>
@@ -55,6 +55,8 @@
             <li>Участник сделал ставку: 50000.00 ₽</li>
         </ul>
     </div>
+
+    <script src="/script/order.js"></script>
 </div>
 </body>
 </html>

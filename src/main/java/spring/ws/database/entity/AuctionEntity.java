@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -16,7 +15,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "auction")
-public class AuctionEntity implements BaseEntity{
+public class AuctionEntity implements BaseEntity<Long> {
 
 
     @Id
@@ -32,13 +31,13 @@ public class AuctionEntity implements BaseEntity{
     private LocalTime time;
 
     @Override
-    public void setId(Serializable id) {
+    public void setId(Long id) {
 
     }
 
     @Override
-    public Serializable getId() {
-        return null;
+    public Long getId() {
+        return this.id;
     }
 
 }

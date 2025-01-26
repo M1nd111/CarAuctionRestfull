@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS cars
 CREATE TABLE IF NOT EXISTS orders
 (
     order_number SERIAL PRIMARY KEY,
-    auto_number BIGINT NOT NULL,
+    auto_number VARCHAR(128) NOT NULL,
     seller_phone BIGINT NOT NULL,
     buyer_phone INTEGER REFERENCES buyer(phone_number),
     initial_bid  VARCHAR(128) NOT NULL,

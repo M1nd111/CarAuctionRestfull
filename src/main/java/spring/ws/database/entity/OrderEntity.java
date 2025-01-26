@@ -19,10 +19,11 @@ public class OrderEntity implements BaseEntity<Long> {
 
     @Id
     @Column(name = "order_number")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long orderNumber;
 
     @Column(name = "auto_number")
-    private Long autoNumber;
+    private String autoNumber;
     @Column(name = "seller_phone")
     private Long sellerPhone;
 

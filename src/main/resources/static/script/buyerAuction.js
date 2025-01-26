@@ -3,6 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(updateRecordTable, 10000);
 });
 
+var participateCarsButton = document.getElementById("participate_auction");
+var spanParticipate = document.getElementsByClassName("closeParticipate")[0];
+var modalParticipateCars = document.getElementById("modalParticipate");
+
+
+participateCarsButton.onclick = function() {
+    modalParticipateCars.style.display = "block";
+}
+
+spanParticipate.onclick = function() {
+    modalParticipateCars.style.display = "none";
+}
 function updateRecordTable() {
     fetch('/api/action/allAuction')
         .then(response => response.json())
@@ -35,3 +47,4 @@ function updateRecordTable() {
             console.error('Error:', error);
         });
 }
+

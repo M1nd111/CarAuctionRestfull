@@ -45,6 +45,18 @@ public class BuyerService implements UserDetailsService{
                 .build()).get();
     }
 
+    public BuyerReadDto findByPhone(Long phone) {
+
+        return buyerRepository.findByPhoneNumber(phone).map(BuyerEntity -> BuyerReadDto.builder()
+                .phoneNumber(String.valueOf(BuyerEntity.getPhoneNumber()))
+                .fio(BuyerEntity.getFio())
+                .passportNumber(String.valueOf(BuyerEntity.getPassportNumber()))
+                .email(BuyerEntity.getEmail())
+                .password(BuyerEntity.getPassword())
+                .role(String.valueOf(BuyerEntity.getRole()))
+                .build()).get();
+    }
+
     public List<BuyerReadDto> findAll() {
 
         return buyerRepository.findAll().stream().map(BuyerEntity -> BuyerReadDto.builder()

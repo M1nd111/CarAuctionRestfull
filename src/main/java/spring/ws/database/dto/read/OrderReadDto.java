@@ -15,7 +15,7 @@ import java.time.LocalTime;
 public class OrderReadDto {
 
     private Long orderNumber;
-    private Long autoNumber;
+    private String autoNumber;
     private Long sellerPhone;
     private Long buyerPhone;
     private String initialBid;

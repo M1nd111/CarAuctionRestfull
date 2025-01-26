@@ -11,7 +11,6 @@ var spanAdd = document.getElementsByClassName("closeAdd")[0];
 var spanDell = document.getElementsByClassName("closeDell")[0];
 var spanEdit = document.getElementsByClassName("closeEdit")[0];
 var spanPut = document.getElementsByClassName("closePut")[0];
-
 var modalEditCars = document.getElementById("modalEditCars");
 var modalDellCars = document.getElementById("modalDellCars");
 var modalPutCars = document.getElementById("modalPutCars");
@@ -62,6 +61,13 @@ spanPut.onclick = function() {
 }
 
 
+document.getElementById('put_button').addEventListener('click', function(event) {
+    fetch('/timer/start')
+        .then(response => response.json())
+        .then(serverTime => {
+        })
+        .catch(error => console.error('Error fetching timer:', error));
+});
 document.getElementById('formEdit').addEventListener('submit', function(event) {
     event.preventDefault();
     const csrfToken = document.querySelector('input[name="_csrf"]').value;

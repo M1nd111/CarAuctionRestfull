@@ -67,6 +67,7 @@
                 <div class="modalAdd-content">
                     <span class="closeAdd">&times;</span>
                     <form id="modalFormAdd" name="car" class="modal-form"  method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                         <label for="MarkAndModelName">Mark and model name</label>
                         <input type="text" id="MarkAndModelName" name="MarkAndModelName" placeholder="Subaru Impreza" required>
 

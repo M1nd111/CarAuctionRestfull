@@ -33,8 +33,6 @@ public class RedirectController {
     private final SellerRepository sellerRepository;
     private final SellerService sellerService;
     private final CarService carService;
-    private final CarRepository carRepository;
-    private final AuctionRepository auctionRepository;
     private final AuctionService auctionService;
 
 
@@ -47,6 +45,7 @@ public class RedirectController {
     public String redirectPageMain(Model model, HttpSession httpSession){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+
         System.out.println(username);
 
         if(sellerRepository.findByEmail(username).isPresent()){
@@ -78,8 +77,8 @@ public class RedirectController {
     public String redirectPagePut(@RequestParam String autoNumber,
                                   @RequestParam LocalDate datePut,
                                   @RequestParam LocalTime timePut,
-                                  Model model){
-
+                                  Model model,
+                                  HttpSession httpSession){
         model.addAttribute("date", datePut);
         model.addAttribute("time", timePut);
 
@@ -92,6 +91,30 @@ public class RedirectController {
                 .time(timePut)
                 .build();
         auctionService.save(auctionReadDto);
+
+        auctionReadDto = auctionService.findByAutoNumber(autoNumber);
+        model.addAttribute("id", auctionReadDto.getId());
+
+        String role = (String) httpSession.getAttribute("role");
+        model.addAttribute("role", role);
+        return "user/order";
+    }
+
+    @GetMapping("/participate")
+    public String redirectPagePutP(@RequestParam String autoNumber,
+                                   Model model, HttpSession httpSession){
+
+        AuctionReadDto auctionReadDto = auctionService.findByAutoNumber(autoNumber);
+
+        model.addAttribute("date", auctionReadDto.getDate());
+        model.addAttribute("time", auctionReadDto.getTime());
+        model.addAttribute("id", auctionReadDto.getId());
+
+        CarReadDto carReadDto = carService.findByAutoNumber(autoNumber);
+        model.addAttribute("car", carReadDto);
+
+        String role = (String) httpSession.getAttribute("role");
+        model.addAttribute("role", role);
         return "user/order";
     }
 

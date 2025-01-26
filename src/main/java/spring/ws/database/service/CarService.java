@@ -41,6 +41,7 @@ public class CarService {
                 .km(CarEntity.getKm())
                 .carCondition(CarEntity.getCarCondition())
                 .price(String.valueOf(CarEntity.getPrice()))
+                .sellerPhone(String.valueOf(CarEntity.getSeller().getPhoneNumber()))
                 .build()).get();
 
     }

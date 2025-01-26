@@ -14,6 +14,7 @@ import java.time.LocalTime;
 @Setter
 @Data
 public class AuctionReadDto {
+    private Long id;
     private String autoNumber;
     private LocalDate date;
     private LocalTime time;

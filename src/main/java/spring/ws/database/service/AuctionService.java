@@ -35,10 +35,30 @@ public class AuctionService {
 
     public List<AuctionReadDto> findAll(){
         return auctionRepository.findAll().stream().map(AuctionEntity -> AuctionReadDto.builder()
+                .id(AuctionEntity.getId())
                 .autoNumber(AuctionEntity.getAutoNumber())
                 .date(AuctionEntity.getDate())
                 .time(AuctionEntity.getTime())
                 .build()).collect(Collectors.toList());
+    }
+
+
+    public AuctionReadDto findByAutoNumber(String autoNumber){
+        return auctionRepository.findByAutoNumber(autoNumber).map(AuctionEntity -> AuctionReadDto.builder()
+                .id(AuctionEntity.getId())
+                .autoNumber(AuctionEntity.getAutoNumber())
+                .date(AuctionEntity.getDate())
+                .time(AuctionEntity.getTime())
+                .build()).get();
+    }
+
+    public AuctionReadDto findByID(Long id){
+        return auctionRepository.findById(id).map(AuctionEntity -> AuctionReadDto.builder()
+                .id(AuctionEntity.getId())
+                .autoNumber(AuctionEntity.getAutoNumber())
+                .date(AuctionEntity.getDate())
+                .time(AuctionEntity.getTime())
+                .build()).get();
     }
 
 }
