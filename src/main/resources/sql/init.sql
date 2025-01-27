@@ -48,5 +48,6 @@ CREATE TABLE IF NOT EXISTS orders
     buyer_phone INTEGER REFERENCES buyer(phone_number),
     initial_bid  VARCHAR(128) NOT NULL,
     date  DATE NOT NULL,
-    time  TIME NOT NULL
+    time  TIME NOT NULL,
+    status BOOLEAN
 );

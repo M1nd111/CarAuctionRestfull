@@ -21,5 +21,6 @@ public class OrderReadDto {
     private String initialBid;
     private LocalDate date;
     private LocalTime time;
+    private Boolean status;
 
 }

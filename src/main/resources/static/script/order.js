@@ -1,8 +1,9 @@
 let globalTimeLeft = 0;
 document.addEventListener("DOMContentLoaded", () => {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     updateRecordBid();
     setInterval(updateRecordBid, 1000);
-    startGlobalTimer();
+    startGlobalTimer(csrfToken);
 
 });
 document.getElementById('form-bid-put').addEventListener('submit', function(event) {
@@ -94,7 +95,7 @@ function updateTimerDisplay(timeLeft) {
     const timerElement = document.getElementById('timer');
     timerElement.textContent = `${timeLeft} сек.`;
 }
-function startGlobalTimer() {
+function startGlobalTimer(csrfToken) {
     fetchGlobalTimer();
     setInterval(() => {
         if (globalTimeLeft > 0) {
@@ -102,14 +103,43 @@ function startGlobalTimer() {
             updateTimerDisplay(globalTimeLeft);
         } else {
             fetch('/timer/reset', {
-                method: 'POST',
+                method: 'GET',
             }).then(() => {
                 fetchGlobalTimer(); // Обновляем текущее время с сервера
             });
-            alert('Аукцион закончен!');
+
+            putVinBid(csrfToken)
+
         }
     }, 1000);
 }
 
 
+function putVinBid(csrfToken) {
+    const autoNumber = document.getElementById('autoNumber');
+    const autoNumberValue = autoNumber.textContent || autoNumber.innerText;
+    const url = new URL('/api/action/vinBid', window.location.origin); // Создаем URL
+    url.searchParams.append('autoNumber', autoNumberValue);
+    fetch(url.toString(), {
+        method: 'GET',
+        // headers: {
+        //     'Content-Type': 'application/json', // Указываем тип контента
+        //     'X-CSRF-TOKEN': csrfToken // Передаем CSRF токен
+        // }
+    })
+        .then(response => response.json())
+        .then(bid => {
+            alert('Аукцион закончен! Победитель: ' + bid);
 
+            setTimeout(
+                fetch('/redirect/main', {
+                    method: 'GET',
+                })
+                , 5000)
+
+
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}

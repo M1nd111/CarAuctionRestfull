@@ -16,9 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import spring.ws.database.dto.read.*;
 import spring.ws.database.dto.write.Auction;
+import spring.ws.database.entity.OrderEntity;
 import spring.ws.database.entity.SellerEntity;
 import spring.ws.database.repository.BuyerRepository;
 import spring.ws.database.repository.CarRepository;
+import spring.ws.database.repository.OrderRepository;
 import spring.ws.database.repository.SellerRepository;
 import spring.ws.database.service.*;
 
@@ -39,6 +41,20 @@ public class ActionRestController {
     private final CarService carService;
     private final AuctionService auctionService;
     private final OrderService orderService;
+    private final OrderRepository orderRepository;
+
+    @GetMapping("/vinBid")
+    public String putVinBid(@RequestParam String autoNumber, HttpSession session) {
+
+        OrderEntity orderEntity = orderRepository.findTopByAutoNumberOrderByInitialBidDesc(autoNumber).get(0);
+        orderEntity.setStatus(true);
+
+        orderRepository.updateByOrderNumber(orderEntity.getOrderNumber(), orderEntity);
+
+        OrderEntity order = orderRepository.findByOrderNumber(orderEntity.getOrderNumber());
+
+        return order.getSellerPhone().toString();
+    }
 
     @PostMapping("/addBid")
     public String addBid(@RequestParam String id,

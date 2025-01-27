@@ -33,6 +33,8 @@ public class OrderEntity implements BaseEntity<Long> {
     private LocalDate date;
     @Column(name = "time")
     private LocalTime time;
+    @Column(name = "status")
+    private Boolean status;
 
     @ManyToOne
     @JoinColumn(name = "buyer_phone")

@@ -23,7 +23,7 @@ public class AuctionTimerController {
         return timerService.getTimeLeft();
     }
 
-    @PostMapping("/reset")
+    @GetMapping("/reset")
     public void resetTimer() {
         timerService.resetTimer();
     }
