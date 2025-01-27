@@ -17,8 +17,8 @@ function updateRecordBid() {
                 const li = document.createElement('li');
                 li.setAttribute('data-id', index + 1);
                 li.innerHTML = `
-                        <li><span data-field="bid">${bid.orderNumber} ${bid.autoNumber} ${bid.sellerPhone} ${bid.buyerPhone}
-                        ${bid.initialBid} ${bid.date} ${bid.time} ${bid.status}</span></li>
+                        <li><span data-field="bid">${bid.autoNumber} ${bid.sellerPhone} ${bid.buyerPhone}
+                        ${bid.initialBid} ${bid.date} ${bid.time} </span></li>
                 `;
                 ulBids.appendChild(li);
             });

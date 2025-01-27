@@ -7,7 +7,7 @@
 
 <div th:fragment="buyerProfile">
 
-    <header>
+    <header id="header">
         <h1>Car Auctions</h1>
         <nav>
             <a href="/redirect/main">Auctions</a>
@@ -28,7 +28,7 @@
     </div>
 
 
-    <button id="delete-button-buyer" class="redirect_button" type="submit">Delete profile</button>
+    <button id="delete-button" class="redirect_button" type="submit">Delete profile</button>
 
     <div id="modalDell" class="modal">
         <form action="/redirect/logout" method="post" >

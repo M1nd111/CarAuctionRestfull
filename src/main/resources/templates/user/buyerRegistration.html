@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Registration</title>
     <link rel="stylesheet" href="/style/register.css">
+    <link rel="stylesheet" href="/style/auction.css">
 </head>
 <body>
 <div class="m_div">
-    <form th:action="@{/authorization/buyer/register}" enctype="multipart/form-data" method="post">
+    <form  th:action="@{/authorization/buyer/register}" enctype="multipart/form-data" method="post">
 
         <label for="fio">FIO:
             <input id="fio" type="text" name="fio">
@@ -22,17 +23,13 @@
             <input id="passportNumber" type="text" name="passportNumber">
         </label><br><br>
         <label for="password">Password:
-            <input id="password" type="text" name="password">
+            <input id="password" type="password" name="password">
         </label><br><br>
 
         <br><br>
         <button class="register_button" type="submit">Register</button>
         <br><br>
     </form>
-
-<!--    <div th:if="${errors}">-->
-<!--        <p style="collor:red" th:each="error:${errors}" th:text="${error.defaultMessage}">Error message</p>-->
-<!--    </div>-->
 
 </div>
 <script src="/script/register.js"></script>

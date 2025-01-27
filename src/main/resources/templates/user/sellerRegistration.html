@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Registration</title>
     <link rel="stylesheet" href="/style/register.css">
+    <link rel="stylesheet" href="/style/auction.css">
 </head>
 <body>
 <div class="m_div">
-    <form th:action="@{/authorization/seller/register}" enctype="multipart/form-data" method="post" th:object="${seller}">
+    <form  th:action="@{/authorization/seller/register}" enctype="multipart/form-data" method="post" th:object="${seller}">
 
         <label for="fio">FIO:
             <input id="fio" type="text" name="fio">

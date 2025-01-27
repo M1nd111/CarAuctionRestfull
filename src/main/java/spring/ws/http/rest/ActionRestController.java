@@ -14,7 +14,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.ws.database.dto.read.*;
 import spring.ws.database.dto.write.Auction;
 import spring.ws.database.entity.OrderEntity;
@@ -156,8 +159,6 @@ public class ActionRestController {
                     .markAndModelName(carReadDto.getMarkAndModelName())
                     .km(carReadDto.getKm())
                     .price(carReadDto.getPrice())
-                    .date(auctionReadDto.getDate())
-                    .time(auctionReadDto.getTime())
                     .build();
 
             auctionList.add(auction);
@@ -191,8 +192,14 @@ public class ActionRestController {
     }
 
     @PostMapping("/add")
-    public String add(@Valid @ModelAttribute CarReadDto carReadDto,
+    public String add(@ModelAttribute @Validated CarReadDto carReadDto,
+                      BindingResult  bindingResult,
+                      RedirectAttributes redirectAttributes,
                       HttpSession session){
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/redirect/main";
+        }
         Long phone = Long.valueOf((String) session.getAttribute("phone"));
         SellerEntity seller = sellerRepository.findById(phone).get();
         carService.save(carReadDto, seller);

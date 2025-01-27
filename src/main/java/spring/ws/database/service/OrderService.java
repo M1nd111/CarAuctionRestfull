@@ -26,7 +26,7 @@ public class OrderService {
 
     @Transactional
     public void save(OrderReadDto orderReadDto){
-        BuyerEntity buyerEntity = buyerRepository.findByPhoneNumber(orderReadDto.getBuyerPhone()).get();
+        BuyerEntity buyerEntity = buyerRepository.findByPhoneNumber(Long.valueOf(orderReadDto.getBuyerPhone())).get();
 
         orderRepository.save(OrderEntity.builder()
                         .autoNumber(orderReadDto.getAutoNumber())
@@ -42,7 +42,7 @@ public class OrderService {
 
         return orderRepository.findAllByAutoNumber(autoNumber).stream().map(OrderEntity -> OrderReadDto.builder()
                 .sellerPhone(OrderEntity.getSellerPhone())
-                .buyerPhone(OrderEntity.getBuyer().getPhoneNumber())
+                .buyerPhone(Long.valueOf(OrderEntity.getBuyer().getPhoneNumber()))
                 .autoNumber(OrderEntity.getAutoNumber())
                 .initialBid(OrderEntity.getInitialBid())
                 .time(OrderEntity.getTime())

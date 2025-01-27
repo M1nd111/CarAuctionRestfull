@@ -20,6 +20,7 @@
 }
 
 .modal-form input[type="text"],
+.modal-form input[type="password"],
 .modal-form input[type="date"] {
     padding: 10px;
     border: 1px solid #ccc;
@@ -29,6 +30,7 @@
 }
 
 .modal-form input[type="text"]:focus,
+.modal-form input[type="password"]:focus,
 .modal-form input[type="date"]:focus {
     border-color: #2EACC7;
     box-shadow: 0 0 8px rgba(46, 172, 199, 0.5);
@@ -87,7 +89,14 @@ body {
     background-color: #f9f9f9;
 }
 
-header {
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+    header {
     background-color: #333;
     color: #fff;
     padding: 15px 20px;
@@ -171,6 +180,16 @@ header nav a:hover {
 
 .bid-button {
     background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.bid-button2 {
+    background-color: #333;
     color: #fff;
     padding: 10px 20px;
     margin-left: 10px;

@@ -36,8 +36,6 @@ function updateRecordTable() {
                             <p><strong>Km:</strong> <span  data-field="km">${auction.km}</span></p>
                             <p><strong>Condition:</strong> <span  data-field="carCondition">${auction.carCondition}</span></p>
                             <p><strong>Start price:</strong> <span  data-field="price">${auction.price}</span></p>
-                            <p><strong>Date:</strong> <span  data-field="price">${auction.date}</span></p>
-                            <p><strong>Time start:</strong> <span  data-field="price">${auction.time}</span></p>
                         </div>
                 `;
                 divCars.appendChild(div);

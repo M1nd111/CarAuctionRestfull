@@ -10,28 +10,29 @@
 <div class="m_div">
     <p>Добро пожаловать на аукцион!</p><br>
 
-    <form id="modalForm" th:action="@{/redirect/login}" method="post">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <form id="modal-form" th:action="@{/redirect/login}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
-        <label for="username"><span>Email:</span>
-            <input type="text" name="username" id="username">
-        </label><br/><br/>
+                <label for="username"><span>Email:</span>
+                    <input type="text" name="username" id="username">
+                </label><br/><br/>
 
-        <label for="password"><span>Password:</span>
-            <input type="password" name="password" id="password">
-        </label><br/><br/>
+                <label for="password"><span>Password:</span>
+                    <input type="password" name="password" id="password">
+                </label><br/><br/>
 
-        <div class>
-            <button class="redirect_button" type="submit">Login</button><br/><br/>
-        </div>
-        <div>
-            <a href="/redirect/buyerRegistration">
-                <button class="redirect_button" type="button">Register for buyer</button></a>
-            <a href="/redirect/sellerRegistration">
-                <button class="redirect_button" type="button">Register for seller</button>
-            </a>
-        </div>
-    </form>
+                <div class>
+                    <button class="redirect_button" type="submit">Login</button><br/><br/>
+                </div>
+                <div>
+                    <a href="/redirect/buyerRegistration">
+                        <button class="redirect_button" type="button">Register for buyer</button></a>
+                    <a href="/redirect/sellerRegistration">
+                        <button class="redirect_button" type="button">Register for seller</button>
+                    </a>
+                </div>
+            </form>
+
 
 </div>
 

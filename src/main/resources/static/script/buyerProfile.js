@@ -1,11 +1,16 @@
-var deleteBtnBuyer = document.getElementById("delete-button-buyer");
 var modalLogout = document.getElementById("modalDell");
+var deleteBtnBuyer = document.getElementById("delete-button");
+var header = document.getElementById("header");
+var profile = document.getElementById("profilePage");
 
 deleteBtnBuyer.onclick = function() {
     modalLogout.style.display = "block";
+    header.style.display = "none";
+    profile.style.display = "none";
+    deleteBtnBuyer.style.display = "none";
 }
 
-document.getElementById("delete-button-buyer").addEventListener("click", function () {
+document.getElementById("delete-button").addEventListener("click", function () {
     const csrfToken = document.querySelector('input[name="_csrf"]').value;
 
     fetch('/api/action/dellProfile', {

@@ -101,8 +101,7 @@ public class RedirectController {
 
         AuctionReadDto auctionReadDto = auctionService.findByAutoNumber(autoNumber);
 
-        model.addAttribute("date", auctionReadDto.getDate());
-        model.addAttribute("time", auctionReadDto.getTime());
+
         model.addAttribute("id", auctionReadDto.getId());
 
         CarReadDto carReadDto = carService.findByAutoNumber(autoNumber);
