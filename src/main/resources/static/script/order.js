@@ -1,4 +1,5 @@
 let globalTimeLeft = 0;
+
 document.addEventListener("DOMContentLoaded", () => {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     updateRecordBid();
@@ -82,7 +83,11 @@ function showNotification(title, body) {
 }
 
 function fetchGlobalTimer() {
-    fetch('/timer/get')
+    const autoNumber = document.getElementById('autoNumber');
+    const autoNumberValue = autoNumber.textContent || autoNumber.innerText;
+    const url = new URL('/timer/get', window.location.origin); // Создаем URL
+    url.searchParams.append('autoNumber', autoNumberValue);
+    fetch(url.toString())
         .then(response => response.json())
         .then(serverTime => {
             globalTimeLeft = serverTime;
@@ -102,18 +107,31 @@ function startGlobalTimer(csrfToken) {
             fetchGlobalTimer();
             updateTimerDisplay(globalTimeLeft);
         } else {
-            fetch('/timer/reset', {
+            const autoNumber = document.getElementById('autoNumber');
+            const autoNumberValue = autoNumber.textContent || autoNumber.innerText;
+            const url = new URL('/timer/reset', window.location.origin); // Создаем URL
+            url.searchParams.append('autoNumber', autoNumberValue);
+            fetch(url.toString(), {
                 method: 'GET',
-            }).then(() => {
-                fetchGlobalTimer(); // Обновляем текущее время с сервера
-            });
+            })
 
             putVinBid(csrfToken)
+            deleteCarForAuction()
+
 
         }
     }, 1000);
 }
 
+function deleteCarForAuction(){
+    const autoNumber = document.getElementById('autoNumber');
+    const autoNumberValue = autoNumber.textContent || autoNumber.innerText;
+    const url = new URL('/api/action/deleteCarForAuction', window.location.origin); // Создаем URL
+    url.searchParams.append('autoNumber', autoNumberValue);
+    fetch(url.toString(), {
+        method: 'GET',
+    })
+}
 
 function putVinBid(csrfToken) {
     const autoNumber = document.getElementById('autoNumber');
@@ -122,22 +140,10 @@ function putVinBid(csrfToken) {
     url.searchParams.append('autoNumber', autoNumberValue);
     fetch(url.toString(), {
         method: 'GET',
-        // headers: {
-        //     'Content-Type': 'application/json', // Указываем тип контента
-        //     'X-CSRF-TOKEN': csrfToken // Передаем CSRF токен
-        // }
     })
         .then(response => response.json())
         .then(bid => {
             alert('Аукцион закончен! Победитель: ' + bid);
-
-            setTimeout(
-                fetch('/redirect/main', {
-                    method: 'GET',
-                })
-                , 5000)
-
-
         })
         .catch(error => {
             console.error('Error:', error);

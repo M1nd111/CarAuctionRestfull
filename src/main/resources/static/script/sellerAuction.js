@@ -60,14 +60,54 @@ spanPut.onclick = function() {
     modalPutCars.style.display = "none";
 }
 
+// document.getElementById('formPut').addEventListener('submit', function (event) {
+//     event.preventDefault(); // Отменяем стандартное поведение формы
+//
+//     const csrfToken = document.querySelector('input[name="_csrf"]').value; // Получаем CSRF-токен
+//     const autoNumber = document.getElementById('autoNumberPut'); // Получаем поле ввода
+//     const autoNumberValue = autoNumber.value.trim(); // Берем значение поля (value), убираем пробелы
+//     if (!autoNumberValue) {
+//         console.error('Поле авто номер пустое!');
+//         return;
+//     }
+//     console.log('Введенное значение:', autoNumberValue);
+//
+//     // const url1 = new URL('/redirect/put', window.location.origin); // URL для первого запроса
+//     const url2 = new URL('/timer/start', window.location.origin); // URL для второго запроса
+//     // url1.searchParams.append('autoNumber', autoNumberValue);
+//     url2.searchParams.append('autoNumber', autoNumberValue);
+//
+//     // Отправка первого запроса
+//     fetch(url2.toString(), {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'X-CSRF-TOKEN': csrfToken // Передаем CSRF-токен
+//         }
+//     })
 
-document.getElementById('put_button').addEventListener('click', function(event) {
-    fetch('/timer/start')
-        .then(response => response.json())
-        .then(serverTime => {
-        })
-        .catch(error => console.error('Error fetching timer:', error));
-});
+    // // Отправка второго запроса
+    // fetch(url1.toString(), {
+    //     method: 'GET',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'X-CSRF-TOKEN': csrfToken // Передаем CSRF-токен
+    //     }
+    // })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error(`Ошибка сервера: ${response.status}`);
+    //         }
+    //         return response.text(); // Получаем текстовый ответ (имя страницы)
+    //     })
+    //     .then(pageName => {
+    //         console.log('Переход на страницу:', pageName);
+    //         // Перенаправляем пользователя на страницу
+    //         window.location.href = pageName;
+    //     })
+    //     .catch(error => console.error('Ошибка при запросе:', error));
+// });
+
 document.getElementById('formEdit').addEventListener('submit', function(event) {
     event.preventDefault();
     const csrfToken = document.querySelector('input[name="_csrf"]').value;

@@ -19,6 +19,15 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
             "WHERE o.autoNumber = :autoNumber " +
             "ORDER BY CAST(o.initialBid AS int) DESC")
     List<OrderEntity> findTopByAutoNumberOrderByInitialBidDesc(@Param("autoNumber") String autoNumber);
+    @Query("SELECT o FROM OrderEntity o " +
+            "WHERE o.buyer.phoneNumber = :buyerPhone AND o.status = true " +
+            "ORDER BY CAST(o.initialBid AS int) DESC")
+    List<OrderEntity> findTopByBuyerPhoneAndStatusOrderByInitialBidDesc(@Param("buyerPhone") String buyerPhone);
+
+    @Query("SELECT o FROM OrderEntity o " +
+            "WHERE o.sellerPhone = :sellerPhone AND o.status = true " +
+            "ORDER BY CAST(o.initialBid AS int) DESC")
+    List<OrderEntity> findTopBySellerPhoneAndStatusOrderByInitialBidDesc(@Param("sellerPhone") String sellerPhone);
     @Modifying
     @Transactional
     @Query("UPDATE OrderEntity o SET " +

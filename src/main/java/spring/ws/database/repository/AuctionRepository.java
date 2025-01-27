@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface AuctionRepository extends JpaRepository<AuctionEntity, Long> {
 
     Optional<AuctionEntity> findByAutoNumber(String autoNumber);
+    void deleteByAutoNumber(String autoNumber);
 
 }

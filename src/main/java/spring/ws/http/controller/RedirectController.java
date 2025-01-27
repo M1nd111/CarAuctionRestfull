@@ -14,10 +14,7 @@ import spring.ws.database.repository.AuctionRepository;
 import spring.ws.database.repository.BuyerRepository;
 import spring.ws.database.repository.CarRepository;
 import spring.ws.database.repository.SellerRepository;
-import spring.ws.database.service.AuctionService;
-import spring.ws.database.service.BuyerService;
-import spring.ws.database.service.CarService;
-import spring.ws.database.service.SellerService;
+import spring.ws.database.service.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -34,6 +31,8 @@ public class RedirectController {
     private final SellerService sellerService;
     private final CarService carService;
     private final AuctionService auctionService;
+
+    private final AuctionTimerService timerService;
 
 
 
@@ -75,20 +74,14 @@ public class RedirectController {
 
     @GetMapping("/put")
     public String redirectPagePut(@RequestParam String autoNumber,
-                                  @RequestParam LocalDate datePut,
-                                  @RequestParam LocalTime timePut,
                                   Model model,
                                   HttpSession httpSession){
-        model.addAttribute("date", datePut);
-        model.addAttribute("time", timePut);
 
         CarReadDto carReadDto = carService.findByAutoNumber(autoNumber);
         model.addAttribute("car", carReadDto);
 
         AuctionReadDto auctionReadDto = AuctionReadDto.builder()
                 .autoNumber(autoNumber)
-                .date(datePut)
-                .time(timePut)
                 .build();
         auctionService.save(auctionReadDto);
 
@@ -97,6 +90,8 @@ public class RedirectController {
 
         String role = (String) httpSession.getAttribute("role");
         model.addAttribute("role", role);
+
+        timerService.startTimer(autoNumber);
         return "user/order";
     }
 
@@ -119,9 +114,10 @@ public class RedirectController {
     }
 
     @GetMapping("/bids")
-    public String redirectPageBids(){
-
-        return "user/auction";
+    public String redirectPageBids(HttpSession httpSession, Model model){
+        String phone = (String) httpSession.getAttribute("phone");
+        model.addAttribute("phone", phone);
+        return "user/mybids";
     }
 
 

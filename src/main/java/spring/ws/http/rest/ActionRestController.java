@@ -12,16 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import spring.ws.database.dto.read.*;
 import spring.ws.database.dto.write.Auction;
 import spring.ws.database.entity.OrderEntity;
 import spring.ws.database.entity.SellerEntity;
-import spring.ws.database.repository.BuyerRepository;
-import spring.ws.database.repository.CarRepository;
-import spring.ws.database.repository.OrderRepository;
-import spring.ws.database.repository.SellerRepository;
+import spring.ws.database.repository.*;
 import spring.ws.database.service.*;
 
 import java.time.LocalDate;
@@ -29,19 +27,30 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/action")
-@SessionAttributes({"user", "role", "phone"})
 @RequiredArgsConstructor
 public class ActionRestController {
     private final BuyerService buyerService;
+    private final BuyerRepository buyerRepository;
     private final SellerRepository sellerRepository;
     private final SellerService sellerService;
     private final CarService carService;
+    private final CarRepository carRepository;
     private final AuctionService auctionService;
+    private final AuctionRepository auctionRepository;
     private final OrderService orderService;
     private final OrderRepository orderRepository;
+
+
+    @Transactional
+    @GetMapping("/deleteCarForAuction")
+    public void deleteCarForAuction(@RequestParam String autoNumber, HttpSession session) {
+        auctionRepository.deleteByAutoNumber(autoNumber);
+        carRepository.deleteByAutoNumber(autoNumber);
+    }
 
     @GetMapping("/vinBid")
     public String putVinBid(@RequestParam String autoNumber, HttpSession session) {
@@ -53,7 +62,38 @@ public class ActionRestController {
 
         OrderEntity order = orderRepository.findByOrderNumber(orderEntity.getOrderNumber());
 
-        return order.getSellerPhone().toString();
+        return order.getBuyer().getPhoneNumber().toString();
+    }
+
+    @GetMapping("/vinBidList")
+    public List<OrderReadDto> getVinBidList( HttpSession httpSession, Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        System.out.println(username);
+        List<OrderEntity> orderEntity = new ArrayList<>();
+        List<OrderReadDto> orderReadDtos = new ArrayList<>();
+        if(sellerRepository.findByEmail(username).isPresent()){
+            String phone  = String.valueOf(sellerRepository.findByEmail(username).get().getPhoneNumber());
+            orderEntity = orderRepository.findTopBySellerPhoneAndStatusOrderByInitialBidDesc(phone);
+        } else if (buyerRepository.findByEmail(username).isPresent()){
+            String phone  = String.valueOf(buyerRepository.findByEmail(username).get().getPhoneNumber());
+            orderEntity = orderRepository.findTopByBuyerPhoneAndStatusOrderByInitialBidDesc(phone);
+        } else {
+            System.out.printf("ERROR: USER %s NOT FOUND", username);
+        }
+
+        orderReadDtos = orderEntity.stream().map(OrderEntity -> OrderReadDto.builder()
+                .sellerPhone(OrderEntity.getSellerPhone())
+                .buyerPhone(OrderEntity.getBuyer().getPhoneNumber())
+                .autoNumber(OrderEntity.getAutoNumber())
+                .initialBid(OrderEntity.getInitialBid())
+                .time(OrderEntity.getTime())
+                .date(OrderEntity.getDate())
+                .build()).toList();
+
+        return orderReadDtos;
     }
 
     @PostMapping("/addBid")

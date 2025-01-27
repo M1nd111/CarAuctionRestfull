@@ -25,8 +25,6 @@ public class AuctionService {
 
         AuctionEntity auctionEntity = AuctionEntity.builder()
                 .autoNumber(auctionReadDto.getAutoNumber())
-                .date(auctionReadDto.getDate())
-                .time(auctionReadDto.getTime())
                 .build();
 
         auctionRepository.save(auctionEntity);
@@ -37,8 +35,6 @@ public class AuctionService {
         return auctionRepository.findAll().stream().map(AuctionEntity -> AuctionReadDto.builder()
                 .id(AuctionEntity.getId())
                 .autoNumber(AuctionEntity.getAutoNumber())
-                .date(AuctionEntity.getDate())
-                .time(AuctionEntity.getTime())
                 .build()).collect(Collectors.toList());
     }
 
@@ -47,8 +43,7 @@ public class AuctionService {
         return auctionRepository.findByAutoNumber(autoNumber).map(AuctionEntity -> AuctionReadDto.builder()
                 .id(AuctionEntity.getId())
                 .autoNumber(AuctionEntity.getAutoNumber())
-                .date(AuctionEntity.getDate())
-                .time(AuctionEntity.getTime())
+
                 .build()).get();
     }
 
@@ -56,8 +51,7 @@ public class AuctionService {
         return auctionRepository.findById(id).map(AuctionEntity -> AuctionReadDto.builder()
                 .id(AuctionEntity.getId())
                 .autoNumber(AuctionEntity.getAutoNumber())
-                .date(AuctionEntity.getDate())
-                .time(AuctionEntity.getTime())
+
                 .build()).get();
     }
 

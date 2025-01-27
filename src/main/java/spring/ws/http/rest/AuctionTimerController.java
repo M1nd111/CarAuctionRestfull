@@ -1,10 +1,7 @@
 package spring.ws.http.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import spring.ws.database.service.AuctionTimerService;
 
 @RequiredArgsConstructor
@@ -14,17 +11,17 @@ public class AuctionTimerController {
     private final AuctionTimerService timerService;
 
     @GetMapping("/start")
-    public void startTimer() {
-        timerService.startTimer();
+    public void startTimer(@RequestParam String autoNumber) {
+        timerService.startTimer(autoNumber);
     }
 
     @GetMapping("/get")
-    public long getTime() {
-        return timerService.getTimeLeft();
+    public long getTime(@RequestParam String autoNumber) {
+        return timerService.getTimeLeft(autoNumber);
     }
 
     @GetMapping("/reset")
-    public void resetTimer() {
-        timerService.resetTimer();
+    public void resetTimer(@RequestParam String autoNumber) {
+        timerService.resetTimer(autoNumber);
     }
 }

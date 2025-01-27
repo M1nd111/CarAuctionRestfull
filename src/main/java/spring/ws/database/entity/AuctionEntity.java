@@ -25,10 +25,7 @@ public class AuctionEntity implements BaseEntity<Long> {
 
     @Column(name = "auto_number")
     private String autoNumber;
-    @Column(name = "date")
-    private LocalDate date;
-    @Column(name = "time")
-    private LocalTime time;
+
 
     @Override
     public void setId(Long id) {
