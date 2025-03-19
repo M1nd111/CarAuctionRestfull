@@ -27,6 +27,7 @@ public class AuthorizationController {
     private final SellerService sellerService;
     private final SellerRepository sellerRepository;
 
+    //Todo VALID
     @PostMapping("/buyer/register")
     public String save(@ModelAttribute @Validated BuyerReadDto buyerReadDto,
                        BindingResult bindingResult,
@@ -43,6 +44,7 @@ public class AuthorizationController {
         return "redirect:/redirect/login";
     }
 
+    //Todo VALID
     @PostMapping("/seller/register")
     public String save(@ModelAttribute @Validated SellerReadDto sellerReadDto,
                        BindingResult bindingResult,

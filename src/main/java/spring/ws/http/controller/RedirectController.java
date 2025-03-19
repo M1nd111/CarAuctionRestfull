@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.ws.database.dto.read.*;
 import spring.ws.database.entity.BuyerEntity;
 import spring.ws.database.entity.SellerEntity;
@@ -75,7 +76,14 @@ public class RedirectController {
     @GetMapping("/put")
     public String redirectPagePut(@RequestParam String autoNumber,
                                   Model model,
+                                  RedirectAttributes redirectAttributes,
                                   HttpSession httpSession){
+        String regex = "[A-Z]\\d{3}[A-Z]{2}";
+
+        if(!autoNumber.matches(regex)){
+            redirectAttributes.addFlashAttribute("errors", autoNumber);
+            return "redirect:/redirect/main";
+        }
 
         CarReadDto carReadDto = carService.findByAutoNumber(autoNumber);
         model.addAttribute("car", carReadDto);
@@ -86,6 +94,12 @@ public class RedirectController {
         auctionService.save(auctionReadDto);
 
         auctionReadDto = auctionService.findByAutoNumber(autoNumber);
+
+        if(auctionReadDto == null) {
+            redirectAttributes.addFlashAttribute("errors", auctionReadDto);
+            return "redirect:/redirect/main";
+        }
+
         model.addAttribute("id", auctionReadDto.getId());
 
         String role = (String) httpSession.getAttribute("role");

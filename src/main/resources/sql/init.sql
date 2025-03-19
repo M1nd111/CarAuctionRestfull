@@ -50,3 +50,4 @@ CREATE TABLE IF NOT EXISTS orders
     time  TIME NOT NULL,
     status BOOLEAN
 );
+

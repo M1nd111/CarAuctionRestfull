@@ -124,13 +124,16 @@
                     <button id="confirm_button" type="submit">Confirm</button>
                 </form>
             </div>
+            <div th:if="${errors}">
+                <p style="color:red" th:each="error:${errors}" th:text="${error.defaultMessage}">Error message</p>
+            </div>
         </div>
 
 
         <div id="modalPutCars" class="modal" style="display: none">
             <div class="modalAdd-content">
                 <span class="closePut">&times;</span>
-                <form id="formPut" name="car" class="modal-form" th:action="@{/redirect/put}"  method="get">
+                <form id="formPut" name="car" class="modal-form"  method="get">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
                     <label for="autoNumberEdit">Input auto number for put in auction</label>
@@ -138,6 +141,9 @@
 
                     <button id="put_button" type="submit">Start auction</button>
                 </form>
+            </div>
+            <div th:if="${errors}">
+                <p style="color:red" th:each="error:${errors}" th:text="${error.defaultMessage}">Error message</p>
             </div>
         </div>
 

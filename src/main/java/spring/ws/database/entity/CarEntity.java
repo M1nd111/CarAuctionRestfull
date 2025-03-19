@@ -21,7 +21,7 @@ public class CarEntity implements BaseEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "auto_number")
+    @Column(name = "auto_number", unique = true)
     private String autoNumber;
     @Column(name = "mark_and_model_name")
     private String markAndModelName;

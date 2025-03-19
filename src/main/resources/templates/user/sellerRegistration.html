@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="m_div">
-    <form  th:action="@{/authorization/seller/register}" enctype="multipart/form-data" method="post" th:object="${seller}">
+    <form  id="seller-register-form" th:action="@{/authorization/seller/register}" enctype="multipart/form-data" method="post" th:object="${seller}">
 
         <label for="fio">FIO:
             <input id="fio" type="text" name="fio">
@@ -31,11 +31,10 @@
         <br><br>
     </form>
 
-<!--    <div th:if="${errors}">-->
-<!--        <p style="collor:red" th:each="error:${errors}" th:text="${error.defaultMessage}">Error message</p>-->
-<!--    </div>-->
-
+    <div th:if="${errors}">
+        <p style="color:red" th:each="error:${errors}" th:text="${error.defaultMessage}">Error message</p>
+    </div>
 </div>
-<script src="/script/register.js"></script>
+<script src="/script/sellerRegister.js"></script>
 </body>
 </html>

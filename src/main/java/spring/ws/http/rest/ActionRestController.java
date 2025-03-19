@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.ws.database.dto.read.*;
 import spring.ws.database.dto.write.Auction;
+import spring.ws.database.dto.write.CarEditDto;
 import spring.ws.database.entity.OrderEntity;
 import spring.ws.database.entity.SellerEntity;
 import spring.ws.database.repository.*;
@@ -168,12 +169,14 @@ public class ActionRestController {
         return auctionList;
     }
 
+    //Todo VALID
     @PostMapping("/edit")
     public String edit(@RequestParam String autoNumber,
                        @RequestParam String km,
                        @RequestParam String carCondition,
                        @RequestParam String price,
                        HttpSession session){
+
 
         CarReadDto carReadDto =  carService.findByAutoNumber(autoNumber);
         carReadDto.setCarCondition(carCondition);
@@ -191,6 +194,7 @@ public class ActionRestController {
         return "{\"status\":\"success\"}";
     }
 
+    //Todo VALID
     @PostMapping("/add")
     public String add(@ModelAttribute @Validated CarReadDto carReadDto,
                       BindingResult  bindingResult,
